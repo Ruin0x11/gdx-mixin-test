@@ -1,0 +1,1 @@
+Testing the usage of [Mixin](https://github.com/SpongePowered/Mixin) and a dynamic mod system in a standalone project with JDK 11 + DCEVM.
