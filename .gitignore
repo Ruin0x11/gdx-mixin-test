@@ -102,6 +102,7 @@ gradle-app.setting
 /html/build/
 /ios/build/
 /launcher/build/
+/mod/build/
 
 ## OS Specific
 .DS_Store
@@ -116,3 +117,4 @@ Thumbs.db
 /ios/IOSLauncher.app.dSYM
 
 /logs/
+/launcher/logs/

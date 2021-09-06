@@ -45,14 +45,20 @@ allprojects {
     }
 }
 
+
 project(":launcher") {
     apply plugin: "kotlin"
 
     dependencies {
         implementation project(":desktop")
-        api 'net.minecraft:launchwrapper:1.11'
+        implementation project(":mod")
+        api ('net.minecraft:launchwrapper:1.11') {
+            exclude module: 'asm-debug-all'
+        }
         api 'org.spongepowered:mixin:0.8.4-SNAPSHOT'
         api 'com.google.guava:guava:21.0'
+        api 'com.google.code.gson:gson:2.2.4'
+        api 'org.ow2.asm:asm:6.2'
         api 'org.ow2.asm:asm-tree:6.2'
         api 'org.ow2.asm:asm-commons:6.2'
         api 'org.ow2.asm:asm-util:6.2'
@@ -81,5 +87,19 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    }
+}
+
+project(":mod") {
+    apply plugin: "kotlin"
+
+    //configurations {
+    //    annotationProcessor
+    //}
+
+    dependencies {
+        //annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
+        api project(":core")
+        api 'org.spongepowered:mixin:0.8.4-SNAPSHOT'
     }
 }

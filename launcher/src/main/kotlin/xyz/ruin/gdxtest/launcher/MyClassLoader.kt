@@ -9,8 +9,6 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.URL
 import java.util.*
-import java.util.jar.Attributes
-import java.util.jar.Manifest
 
 
 class MyClassLoader(private val inner: ClassLoader) : ClassLoader() {
@@ -35,14 +33,14 @@ class MyClassLoader(private val inner: ClassLoader) : ClassLoader() {
         addTransformerExclusion("org.objectweb.asm.");
         addTransformerExclusion("com.google.common.");
         addTransformerExclusion("org.bouncycastle.");
-        // addTransformerExclusion("net.minecraft.launchwrapper.injector.");
-    }
-
-    private fun addTransformerExclusion(s: String) {
-        transformerExclusions.add(s)
+        addTransformerExclusion("xyz.ruin.gdxtest.launcher.");
     }
 
     override fun findClass(className: String): Class<*> {
+        return loadClass(className)
+    }
+
+    override fun loadClass(className: String): Class<*> {
         if (invalidClasses.contains(className)) {
             throw ClassNotFoundException(className)
         }
@@ -57,8 +55,9 @@ class MyClassLoader(private val inner: ClassLoader) : ClassLoader() {
 
         if (transformerExclusions.any { className.startsWith(it) }) {
             return try {
-                val method = inner::class.java.getDeclaredMethod("findClass", String::class.java)
-                val clazz = method.invoke(inner, className) as Class<*>
+                val findClass = inner::class.java.getMethod("findClass", String::class.java)
+                findClass.isAccessible = true
+                val clazz = findClass.invoke(inner, className) as Class<*>
                 cachedClasses[className] = clazz
                 clazz
             } catch (e: ClassNotFoundException) {
@@ -109,12 +108,12 @@ class MyClassLoader(private val inner: ClassLoader) : ClassLoader() {
             cls
         } catch (e: Throwable) {
             invalidClasses.add(className)
-            if (true /* DEBUG */) {
+            if (false /* DEBUG */) {
                 LogWrapper.log(Level.TRACE, e, "Exception encountered attempting classloading of %s", className)
                 LogManager.getLogger("LaunchWrapper")
                     .log(Level.ERROR, "Exception encountered attempting classloading of %s", e)
             }
-            throw ClassNotFoundException(name, e)
+            throw ClassNotFoundException(className, e)
         }
     }
 
@@ -148,10 +147,14 @@ class MyClassLoader(private val inner: ClassLoader) : ClassLoader() {
         }
         return basicClass
     }
-
     fun addClassLoaderExclusion(className: String) {
         classLoaderExclusions.add(className)
     }
+
+    private fun addTransformerExclusion(s: String) {
+        transformerExclusions.add(s)
+    }
+
 
     fun addInvalidClass(name: String) {
         invalidClasses.add(name)

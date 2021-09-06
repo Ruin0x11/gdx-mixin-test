@@ -1,4 +1,4 @@
-package xyz.ruin.gdxtest
+package xyz.ruin.gdxtest.core
 
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet

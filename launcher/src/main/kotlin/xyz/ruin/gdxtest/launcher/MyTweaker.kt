@@ -1,9 +1,10 @@
 package xyz.ruin.gdxtest.launcher
 
-import java.io.File
 import org.spongepowered.asm.launch.MixinBootstrap
-import org.spongepowered.asm.service.IMixinService
-import java.util.*
+import org.spongepowered.asm.mixin.MixinEnvironment
+import org.spongepowered.asm.mixin.Mixins
+import java.io.File
+
 
 class MyTweaker : ITweaker {
     init {
@@ -16,6 +17,8 @@ class MyTweaker : ITweaker {
         val doInit = MixinBootstrap::class.java.getDeclaredMethod("doInit", List::class.java)
         doInit.isAccessible = true
         doInit.invoke(null, args.toList())
+
+        Mixins.addConfiguration("mod.mixins.json")
     }
 
     override fun injectIntoClassLoader(classLoader: MyClassLoader) {

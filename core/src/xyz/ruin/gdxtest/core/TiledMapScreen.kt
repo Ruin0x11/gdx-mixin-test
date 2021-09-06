@@ -1,4 +1,4 @@
-package xyz.ruin.gdxtest
+package xyz.ruin.gdxtest.core
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 
-class TiledMapScreen(private val game: Game) : ScreenAdapter() {
+open class TiledMapScreen(private val game: Game) : ScreenAdapter() {
     private val viewport: Viewport
     private val camera: OrthographicCamera
     private val map: InstancedMap get() = renderer.map
@@ -20,6 +20,8 @@ class TiledMapScreen(private val game: Game) : ScreenAdapter() {
         renderer = regenerateMap()
         camera = OrthographicCamera()
         viewport = FillViewport(map.mapWidth.toFloat(), map.mapHeight.toFloat(), camera)
+
+        println("Got back: " + testPrintThing("Test"))
     }
 
     private fun regenerateMap() : InstancedMapRenderer {
@@ -32,6 +34,11 @@ class TiledMapScreen(private val game: Game) : ScreenAdapter() {
         val autoTiler = AutoTiler(64, 64, conf)
         val map = autoTiler.generateInstancedMap()
         return InstancedMapRenderer(map)
+    }
+
+    private fun testPrintThing(dood: String): String {
+        println("Hi! I'm dood: $dood")
+        return "$dood?"
     }
 
     override fun resize(width: Int, height: Int) {
@@ -61,7 +68,7 @@ class TiledMapScreen(private val game: Game) : ScreenAdapter() {
     }
 
     private fun draw() {
-        ScreenUtils.clear(0.0f, 0f, 0.0f, 1f)
+        ScreenUtils.clear(0.0f, 0.0f, 0.1f, 1f)
         renderer.setView(camera)
         renderer.render()
     }

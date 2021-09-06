@@ -3,7 +3,7 @@ package xyz.ruin.gdxtest.desktop
 import kotlin.jvm.JvmStatic
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
-import xyz.ruin.gdxtest.GDXTest
+import xyz.ruin.gdxtest.core.GDXTest
 
 object DesktopLauncher {
     @JvmStatic

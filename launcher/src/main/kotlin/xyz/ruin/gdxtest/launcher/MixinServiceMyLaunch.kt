@@ -110,7 +110,7 @@ class MixinServiceMyLaunch : MixinServiceAbstract(), IClassProvider, IClassBytec
         if (command != null && command.contains("GradleStart")) {
             System.setProperty("mixin.env.remapRefMap", "true")
         }
-        return if (findInStackTrace("net.minecraft.launchwrapper.Launch", "launch") > 132) {
+        return if (findInStackTrace("xyz.ruin.gdxtest.launcher.Launch", "launch") > 81) {
             MixinEnvironment.Phase.DEFAULT
         } else MixinEnvironment.Phase.PREINIT
     }
@@ -131,7 +131,7 @@ class MixinServiceMyLaunch : MixinServiceAbstract(), IClassProvider, IClassBytec
      * @see org.spongepowered.asm.service.IMixinService#init()
      */
     override fun init() {
-        if (findInStackTrace("net.minecraft.launchwrapper.Launch", "launch") < 4) {
+        if (findInStackTrace("xyz.ruin.gdxtest.launcher.Launch", "launch") < 4) {
             logger.error("MixinBootstrap.doInit() called during a tweak constructor!")
         }
         val tweakClasses = GlobalProperties.get<MutableList<String>>(BLACKBOARD_KEY_TWEAKCLASSES)

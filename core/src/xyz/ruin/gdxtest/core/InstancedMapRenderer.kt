@@ -1,4 +1,4 @@
-package xyz.ruin.gdxtest
+package xyz.ruin.gdxtest.core
 
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer

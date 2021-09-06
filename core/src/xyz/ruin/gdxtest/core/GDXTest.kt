@@ -1,4 +1,4 @@
-package xyz.ruin.gdxtest
+package xyz.ruin.gdxtest.core
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch

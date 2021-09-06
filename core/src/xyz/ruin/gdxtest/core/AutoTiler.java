@@ -1,4 +1,4 @@
-package xyz.ruin.gdxtest;
+package xyz.ruin.gdxtest.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeSet;
 
-import static xyz.ruin.gdxtest.AutoTiler.TILE_BITS.*;
+import static xyz.ruin.gdxtest.core.AutoTiler.TILE_BITS.*;
 
 /**
  * AutoTiler

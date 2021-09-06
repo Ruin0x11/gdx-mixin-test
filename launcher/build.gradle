@@ -1,1 +1,17 @@
 project.ext.mainClassName = "xyz.ruin.gdxtest.launcher.Launch"
+
+task run(dependsOn: classes, type: JavaExec) {
+    main = project.ext.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    ignoreExitValue = true
+}
+
+task debug(dependsOn: classes, type: JavaExec) {
+    main = project.ext.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    ignoreExitValue = true
+    debug = true
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("mixin") }.absolutePath}"
+}
