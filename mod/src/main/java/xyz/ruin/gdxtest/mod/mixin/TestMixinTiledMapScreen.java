@@ -1,4 +1,4 @@
-package xyz.ruin.gdxtest.mod;
+package xyz.ruin.gdxtest.mod.mixin;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -12,16 +12,15 @@ import xyz.ruin.gdxtest.core.TiledMapScreen;
 
 @Mixin(TiledMapScreen.class)
 public class TestMixinTiledMapScreen extends ScreenAdapter {
-    @Inject(method = "testPrintThing", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "testPrintThing", at = @At("HEAD"), cancellable = false)
     protected void onTestPrintThing(String dood, CallbackInfoReturnable<String> cir) {
         System.out.println("yo i'm in yr callback");
-        cir.setReturnValue("Asdfg!");
     }
 
     @Inject(method = "update", at = @At("HEAD"))
     protected void onUpdateExtraKeys(float delta, CallbackInfo ci) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-            System.out.println("Doossd!");
+            System.out.println("Doadsd!");
         }
     }
 }

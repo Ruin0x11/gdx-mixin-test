@@ -50,12 +50,15 @@ project(":launcher") {
     apply plugin: "kotlin"
 
     dependencies {
+        runtime project(":mod")
+        runtime project(":mod2")
+
         implementation project(":desktop")
-        implementation project(":mod")
         api ('net.minecraft:launchwrapper:1.11') {
             exclude module: 'asm-debug-all'
         }
         api 'org.spongepowered:mixin:0.8.4-SNAPSHOT'
+        // api files('C:\\Users\\yuno\\build\\Mixin\\build\\libs\\mixin-0.8.4-SNAPSHOT.jar', 'C:\\Users\\yuno\\build\\Mixin\\build\\libs\\mixin-0.8.4-SNAPSHOT-sources.jar')
         api 'com.google.guava:guava:21.0'
         api 'com.google.code.gson:gson:2.2.4'
         api 'org.ow2.asm:asm:6.2'
@@ -87,6 +90,8 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+        implementation 'org.reflections:reflections:0.9.11'
+        api 'org.spongepowered:mixin:0.8.4-SNAPSHOT'
     }
 }
 
@@ -99,6 +104,16 @@ project(":mod") {
 
     dependencies {
         //annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
+        api project(":core")
+        api 'org.spongepowered:mixin:0.8.4-SNAPSHOT'
+        //api files('C:\\Users\\yuno\\build\\Mixin\\build\\libs\\mixin-0.8.4-SNAPSHOT.jar', 'C:\\Users\\yuno\\build\\Mixin\\build\\libs\\mixin-0.8.4-SNAPSHOT-sources.jar')
+    }
+}
+
+project(":mod2") {
+    apply plugin: "kotlin"
+
+    dependencies {
         api project(":core")
         api 'org.spongepowered:mixin:0.8.4-SNAPSHOT'
     }

@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.MixinEnvironment
 import org.spongepowered.asm.mixin.MixinEnvironment.CompatibilityLevel
 import org.spongepowered.asm.mixin.throwables.MixinException
 import org.spongepowered.asm.service.*
-import org.spongepowered.asm.service.mojang.LoggerAdapterLog4j2
 import org.spongepowered.asm.transformers.MixinClassReader
 import org.spongepowered.asm.util.Constants
 import org.spongepowered.asm.util.perf.Profiler

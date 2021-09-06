@@ -23,9 +23,13 @@ class MyClassLoader(private val inner: ClassLoader) : ClassLoader() {
         // classloader exclusions
         addClassLoaderExclusion("java.");
         addClassLoaderExclusion("sun.");
+        addClassLoaderExclusion("org.xml.")
+        addClassLoaderExclusion("org.w3c.")
         addClassLoaderExclusion("org.lwjgl.");
+        addClassLoaderExclusion("org.hotswap.")
         addClassLoaderExclusion("org.apache.logging.");
         addClassLoaderExclusion("xyz.ruin.gdxtest.launcher.");
+        addClassLoaderExclusion("xyz.ruin.gdxtest.core.loader.");
 
         // transformer exclusions
         addTransformerExclusion("javax.");
@@ -55,9 +59,7 @@ class MyClassLoader(private val inner: ClassLoader) : ClassLoader() {
 
         if (transformerExclusions.any { className.startsWith(it) }) {
             return try {
-                val findClass = inner::class.java.getMethod("findClass", String::class.java)
-                findClass.isAccessible = true
-                val clazz = findClass.invoke(inner, className) as Class<*>
+                val clazz = inner.loadClass(className)
                 cachedClasses[className] = clazz
                 clazz
             } catch (e: ClassNotFoundException) {

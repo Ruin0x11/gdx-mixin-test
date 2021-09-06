@@ -103,6 +103,7 @@ gradle-app.setting
 /ios/build/
 /launcher/build/
 /mod/build/
+/mod2/build/
 
 ## OS Specific
 .DS_Store

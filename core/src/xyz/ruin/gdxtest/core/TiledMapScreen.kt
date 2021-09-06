@@ -5,23 +5,38 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 
+
 open class TiledMapScreen(private val game: Game) : ScreenAdapter() {
     private val viewport: Viewport
-    private val camera: OrthographicCamera
+    private val camera: OrthographicCamera = OrthographicCamera()
+    private val cameraSprite: OrthographicCamera
     private val map: InstancedMap get() = renderer.map
     private var renderer: InstancedMapRenderer
+    private var batch: SpriteBatch = SpriteBatch()
+
+    private val things: MutableList<Thing> = mutableListOf()
 
     init {
         renderer = regenerateMap()
-        camera = OrthographicCamera()
         viewport = FillViewport(map.mapWidth.toFloat(), map.mapHeight.toFloat(), camera)
-
+        cameraSprite = OrthographicCamera(Gdx.graphics.width.toFloat(), Gdx.graphics.width.toFloat())
+        cameraSprite.position.set(0f, 0f, 0f)
+        cameraSprite.update()
         println("Got back: " + testPrintThing("Test"))
+    }
+
+    override fun show() {
+        things.clear()
+
+        ThingStorage.INSTANCE.things.forEachIndexed { index, data ->
+            things.add(Thing(data, index * 48 + 10, 10))
+        }
     }
 
     private fun regenerateMap() : InstancedMapRenderer {
@@ -71,6 +86,13 @@ open class TiledMapScreen(private val game: Game) : ScreenAdapter() {
         ScreenUtils.clear(0.0f, 0.0f, 0.1f, 1f)
         renderer.setView(camera)
         renderer.render()
+
+        batch.projectionMatrix = cameraSprite.combined
+        batch.begin()
+        things.forEach {
+            batch.draw(it.sprite, it.x.toFloat(), it.y.toFloat())
+        }
+        batch.end()
     }
 
     override fun render(delta: Float) {

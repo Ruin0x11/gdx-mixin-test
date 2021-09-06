@@ -4,3 +4,18 @@ sourceCompatibility = 1.7
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 eclipse.project.name = appName + "-core"
+
+jar {
+    manifest.attributes(
+            "Built-By": System.properties['user.name'],
+            "Created-By": System.properties['java.vm.version'] + " (" + System.properties['java.vm.vendor'] + ")",
+            //"Implementation-Title": name,
+            //"Implementation-Version": project.version + "+" + ciSystem + "-b" + buildNumber + ".git-" + commit,
+            //"Implementation-Vendor": url,
+            // for hotswap agent
+            "Premain-Class": "xyz.ruin.gdxtest.core.loader.JarLoader",
+            "Agent-Class": "xyz.ruin.gdxtest.core.loader.JarLoader",
+            "Can-Redefine-Classes": false,
+            "Can-Retransform-Classes": false
+    )
+}

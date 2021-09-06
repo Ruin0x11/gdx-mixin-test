@@ -1,10 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "xyz.ruin.gdxtest.mod.mixin",
+  "package": "xyz.ruin.gdxtest.mod2.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "TestMixinTiledMapScreen"
+    "TestMixinTiledMapScreen2"
   ],
   "client": [
   ],
